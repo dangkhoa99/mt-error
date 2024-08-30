@@ -1,9 +1,9 @@
 {
-  "name": "@mt/error",
+  "name": "@dangkhoa99/error",
   "version": "0.0.1",
   "description": "Error handling library support for mt_crash_report",
-  "main": "dist/fe/index.js",
-  "types": "dist/fe/index.d.ts",
+  "main": "dist/index.js",
+  "types": "dist/index.d.ts",
   "scripts": {
     "lint": "eslint '**/*.{js,ts}'",
     "lint:fix": "eslint '**/*.{js,ts}' --fix",
@@ -29,5 +29,15 @@
   "files": [
     "README.md",
     "dist"
-  ]
+  ],
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/dangkhoa99/mt-error"
+  },
+  "bugs": {
+    "url": "https://github.com/dangkhoa99/mt-error/issues"
+  },
+  "homepage": "https://github.com/dangkhoa99/mt-error#readme",
+  "author": "dangkhoa99",
+  "license": "MIT"
 }
