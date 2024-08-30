@@ -1,6 +1,6 @@
 {
   "name": "@dangkhoa99/error",
-  "version": "0.0.1",
+  "version": "0.0.2",
   "description": "Error handling library support for mt_crash_report",
   "main": "dist/index.js",
   "types": "dist/index.d.ts",
@@ -8,7 +8,8 @@
     "lint": "eslint '**/*.{js,ts}'",
     "lint:fix": "eslint '**/*.{js,ts}' --fix",
     "compile": "tsc",
-    "release": "pnpm publish --no-git-checks"
+    "release": "pnpm publish --no-git-checks",
+    "version": "pnpm version"
   },
   "dependencies": {
     "crypto-js": "^4.2.0"
