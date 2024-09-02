@@ -1,12 +1,9 @@
 {
-  "name": "@minimaltech/error",
+  "name": "@dangkhoa99/error-monorepo",
   "private": true,
-  "workspaces": [
-    "packages/*"
-  ],
   "scripts": {
     "format": "prettier '**/*.{js,ts}' --write",
-    "compile:fe": "rm -rf packages/fe/dist && pnpm --filter ./packages/fe run compile",
+    "compile:fe": "rm -rf ./packages/fe/dist && pnpm --filter ./packages/fe run compile",
     "prerelease:fe": "pnpm compile:fe",
     "release:fe": "pnpm --filter ./packages/fe run release"
   },
@@ -14,8 +11,7 @@
     "prettier": "^3.3.3"
   },
   "engines": {
-    "node": ">=18"
-  },
-  "packageManager": "pnpm@9.7.1",
-  "version": "0.0.1"
+    "node": ">=18",
+    "pnpm": ">=9"
+  }
 }
