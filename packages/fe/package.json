@@ -8,7 +8,7 @@
     "lint": "eslint '**/*.{js,ts}'",
     "lint:fix": "eslint '**/*.{js,ts}' --fix",
     "compile": "tsc",
-    "version:patch": "pnpm version patch",
+    "version": "pnpm version",
     "release": "pnpm publish --no-git-checks"
   },
   "dependencies": {
