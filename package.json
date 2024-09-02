@@ -6,7 +6,8 @@
     "compile:fe": "rm -rf ./packages/fe/dist && pnpm --filter ./packages/fe run compile",
     "prerelease:fe": "pnpm compile:fe",
     "release:fe": "pnpm --filter ./packages/fe run release",
-    "all": "echo 'Run all packages'"
+    "all": "echo 'Run all packages'",
+    "release:all": "echo 'Release all packages'"
   },
   "devDependencies": {
     "prettier": "^3.3.3"
