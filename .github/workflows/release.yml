@@ -3,12 +3,13 @@ name: Release
 on:
   workflow_dispatch:
     inputs:
-      workspace:
-        description: 'Workspace'
+      package:
+        description: 'Package'
         required: true
         default: 'fe'
         type: choice
         options:
+          - all
           - fe
           - be
       build_mode:
@@ -36,14 +37,14 @@ jobs:
 
       - name: Setup Git
         run: |
-          git config user.name "mt-ci gh-action"
-          git config user.email "mt-ci@gh-action.none"
+          git config user.name "ci gh-action"
+          git config user.email "ci@gh-action.none"
           git config advice.addIgnoredFile false
           git config advice.detachedHead false
 
-      - name: Verify workspace
+      - name: Verify package
         run: |
-          echo "workspace: ${{ github.event.inputs.workspace }}"
+          echo "package: ${{ github.event.inputs.package }}"
 
       - name: Verify build_mode
         run: |
@@ -56,22 +57,27 @@ jobs:
 
       - name: Versioning application artifact
         run: |
-          WORKSPACE=${{ github.event.inputs.workspace }}
-          RELEASE_MODE=${{ github.event.inputs.build_mode }}
-          pnpm --filter ./packages/$WORKSPACE version $RELEASE_MODE
+          PACKAGE=${{ github.event.inputs.package }}
+
+          if [ $PACKAGE = "all" ]; then
+            pnpm all
+          else
+            RELEASE_MODE=${{ github.event.inputs.build_mode }}
+            pnpm --filter ./packages/$PACKAGE version $RELEASE_MODE
+          fi
 
       - name: Publish package on NPM 📦
         run: |
-          WORKSPACE=${{ github.event.inputs.workspace }}
-          pnpm release:$WORKSPACE
+          PACKAGE=${{ github.event.inputs.package }}
+          pnpm release:$PACKAGE
         env:
           NODE_AUTH_TOKEN: ${{ secrets.NPMJS_ACCESS_TOKEN }}
 
       - name: Patch latest version to Git
         run: |
-          WORKSPACE=${{ github.event.inputs.workspace }}
-          VERSION=$(jq -r .version ./packages/$WORKSPACE/package.json)
-          COMMIT_MESSAGE="[build]: upgrade $WORKSPACE@$VERSION"
+          PACKAGE=${{ github.event.inputs.package }}
+          VERSION=$(jq -r .version ./packages/$PACKAGE/package.json)
+          COMMIT_MESSAGE="[build]: upgrade $PACKAGE@$VERSION"
           git fetch
           git checkout main
           git add .
