@@ -76,8 +76,15 @@ jobs:
       - name: Patch latest version to Git
         run: |
           PACKAGE=${{ github.event.inputs.package }}
-          VERSION=$(jq -r .version ./packages/$PACKAGE/package.json)
-          COMMIT_MESSAGE="[build]: upgrade $PACKAGE@$VERSION"
+          COMMIT_MESSAGE=""
+
+          if [ $PACKAGE = "all" ]; then
+            COMMIT_MESSAGE="[build]: upgrade all packages"
+          else
+            VERSION=$(jq -r .version ./packages/$PACKAGE/package.json)
+            COMMIT_MESSAGE="[build]: upgrade $PACKAGE@$VERSION"
+          fi
+
           git fetch
           git checkout main
           git add .
