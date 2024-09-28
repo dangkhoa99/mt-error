@@ -1,6 +1,6 @@
 {
   "name": "@dangkhoa99/error",
-  "version": "0.0.15",
+  "version": "0.0.16",
   "description": "Error handling library support for mt_crash_report",
   "main": "dist/index.js",
   "types": "dist/index.d.ts",
