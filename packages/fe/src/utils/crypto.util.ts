@@ -65,13 +65,19 @@ const encryptData = async (message, publicKey) => {
 };
 
 //------------------------------------------------------------------------------------
-export const getSignature = async (publicKey?: string) => {
+export const getSignature = async (opts: {
+  publicKey?: string;
+  environment: string;
+  projectId?: number | string;
+}) => {
+  const { publicKey, environment, projectId } = opts;
+
   if (!publicKey) {
     return Promise.resolve('');
   }
 
   const key = await importPublicKey(publicKey);
-  const rs = await encryptData(JSON.stringify({}), key);
+  const rs = await encryptData(JSON.stringify({ environment, projectId }), key);
   return rs;
 };
 

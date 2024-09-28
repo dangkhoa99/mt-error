@@ -71,7 +71,7 @@ class _Client implements IClient {
       device: this._device(this),
       environment,
       projectId,
-      signature: await getSignature(publicKey),
+      signature: await getSignature({ publicKey, environment, projectId }),
       eventType: values.eventType,
     });
   }
