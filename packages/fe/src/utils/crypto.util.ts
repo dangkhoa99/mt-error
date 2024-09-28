@@ -39,12 +39,7 @@ const importPublicKey = async (spki) => {
   const cryptoKey = await window.crypto.subtle.importKey(
     'spki',
     message,
-    {
-      name: 'RSA-OAEP',
-      length: 1198,
-      // modulusLength: 1198,
-      hash: 'sha-1',
-    },
+    { name: 'RSA-OAEP', hash: 'sha-1' },
     false,
     ['encrypt'],
   );
