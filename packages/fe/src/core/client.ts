@@ -59,7 +59,7 @@ class _Client implements IClient {
   //------------------------------------------------------------------------------------
   // Create an event
   // Return a data body containing device actions and other information
-  createEvent<T = AnyType>(values: ICreateEvent<T>): IEvent<T> {
+  async createEvent<T = AnyType>(values: ICreateEvent<T>): Promise<IEvent<T>> {
     const { publicKey, appVersion, appType, environment, projectId } =
       this._config;
 
@@ -71,18 +71,18 @@ class _Client implements IClient {
       device: this._device(this),
       environment,
       projectId,
-      signature: getSignature(publicKey),
+      signature: await getSignature(publicKey),
       eventType: values.eventType,
     });
   }
 
   //------------------------------------------------------------------------------------
   // Used to trigger the reporting of event
-  notify<T = AnyType, TResponse = AnyType>(eventLike: AnyType) {
+  async notify<T = AnyType, TResponse = AnyType>(eventLike: AnyType) {
     let event: IEvent<T> | null;
 
     if (Boolean(eventLike) && !isEvent(eventLike)) {
-      event = this.createEvent(eventLike);
+      event = await this.createEvent(eventLike);
     } else {
       event = eventLike;
     }

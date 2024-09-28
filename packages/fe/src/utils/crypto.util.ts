@@ -66,12 +66,12 @@ const encryptData = async (message, publicKey) => {
 
 //------------------------------------------------------------------------------------
 export const getSignature = (publicKey?: string) => {
-  let rs = '';
-  importPublicKey(publicKey).then((res) => {
-    return encryptData(JSON.stringify({}), res).then((res) => {
-      rs = res;
-    });
-  });
+  if (!publicKey) {
+    return Promise.resolve('');
+  }
+
+  const key = importPublicKey(publicKey);
+  const rs = encryptData(JSON.stringify({}), key);
   return rs;
 };
 
