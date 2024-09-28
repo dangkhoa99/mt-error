@@ -14,9 +14,9 @@ export interface IEvent<T> {
   appVersion?: string;
   appType?: string;
   environment?: TEnvironment;
-  type: string;
+  eventType: string;
 
-  details: T;
+  trace: T;
   device: IDevice;
   actions?: IAction[];
 }
@@ -28,6 +28,6 @@ export interface IBaseDetail {
 
 //------------------------------------------------------------------------------------
 export interface ICreateEvent<T> {
-  type: TEventType;
-  details: T;
+  eventType: TEventType;
+  trace: T;
 }

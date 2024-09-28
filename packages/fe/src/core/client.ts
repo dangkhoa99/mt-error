@@ -13,7 +13,7 @@ import {
   IPlugin,
   INewAction,
 } from '../types';
-import { encrypt, isEvent } from '../utils';
+import { encrypt, getSignature, isEvent } from '../utils';
 import { Action } from './action';
 import { Event } from './event';
 
@@ -60,19 +60,19 @@ class _Client implements IClient {
   // Create an event
   // Return a data body containing device actions and other information
   createEvent<T = AnyType>(values: ICreateEvent<T>): IEvent<T> {
-    const { apiKey, appVersion, appType, environment, projectId, secretKey } =
+    const { publicKey, appVersion, appType, environment, projectId } =
       this._config;
 
     return new Event({
       actions: this._actions,
       appType,
       appVersion,
-      details: values.details,
+      trace: values.trace,
       device: this._device(this),
       environment,
       projectId,
-      signature: encrypt(apiKey, secretKey),
-      type: values.type,
+      signature: getSignature(publicKey),
+      eventType: values.eventType,
     });
   }
 

@@ -5,12 +5,12 @@ export class Event<T> implements IEvent<T> {
   readonly actions?: IAction[];
   readonly appType?: string;
   readonly appVersion?: string;
-  readonly details: T;
+  readonly trace: T;
   readonly device: IDevice;
   readonly environment?: TEnvironment;
   readonly projectId: string | number;
   readonly signature: string;
-  readonly type: string;
+  readonly eventType: string;
 
   //------------------------------------------------------------------------------------
   constructor(event: IEvent<T>) {
@@ -18,23 +18,23 @@ export class Event<T> implements IEvent<T> {
       actions,
       appType,
       appVersion,
-      details,
+      trace,
       device,
       environment,
       projectId,
       signature,
-      type,
+      eventType,
     } = event;
 
     this.actions = actions;
     this.appType = appType;
     this.appVersion = appVersion;
-    this.details = details;
+    this.trace = trace;
     this.device = device;
     this.environment = environment;
     this.projectId = projectId;
     this.signature = signature;
-    this.type = type;
+    this.eventType = eventType;
   }
 
   //------------------------------------------------------------------------------------
