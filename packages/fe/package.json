@@ -1,6 +1,6 @@
 {
   "name": "@dangkhoa99/error",
-  "version": "0.0.20",
+  "version": "0.0.21",
   "description": "Error handling library support for mt_crash_report",
   "main": "dist/index.js",
   "types": "dist/index.d.ts",
@@ -11,8 +11,7 @@
     "version": "pnpm version",
     "release": "pnpm publish --no-git-checks"
   },
-  "dependencies": {
-  },
+  "dependencies": {},
   "devDependencies": {
     "@types/node": "^22.1.0",
     "eslint-plugin-prettier": "^5.2.1",
