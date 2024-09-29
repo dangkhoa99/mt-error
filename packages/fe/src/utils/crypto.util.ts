@@ -54,12 +54,12 @@ const encryptData = async (opts: { message: string; publicKey: CryptoKey }) => {
 //------------------------------------------------------------------------------------
 export const getSignature = async (opts: {
   publicKey?: string;
-  environment: string;
+  environment?: string;
   projectId?: number | string;
 }) => {
   const { publicKey, environment, projectId } = opts;
 
-  if (!publicKey) {
+  if (!publicKey || !projectId || !environment) {
     return Promise.resolve('');
   }
 

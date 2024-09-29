@@ -1,6 +1,6 @@
 import { plugins } from '../plugins';
 import { IClient, IConfig } from '../types';
-import { device, getGlobal, getSignature } from '../utils';
+import { device, getGlobal, isConfigValid } from '../utils';
 import { Client } from './client';
 
 //------------------------------------------------------------------------------------
@@ -10,6 +10,15 @@ export class MTError {
 
   //------------------------------------------------------------------------------------
   constructor(config: IConfig) {
+    if (!isConfigValid(config)) {
+      console.info(
+        '%c MT Error %c initialization failed',
+        'background:#af5f5f; color: #FFF',
+        'background:transparent',
+      );
+      return;
+    }
+
     const global = getGlobal<Window>();
 
     //------------------------------------------------------------------------------------
@@ -36,18 +45,10 @@ export class MTError {
   }
 
   //------------------------------------------------------------------------------------
-  static getInstance(config: IConfig) {
+  static init(config: IConfig) {
     if (!this.instance) {
       this.instance = new MTError(config);
     }
-    return this.instance;
-  }
-
-  //------------------------------------------------------------------------------------
-  get client() {
-    if (!this._client) {
-      throw new Error('MT Error not initialized');
-    }
-    return this._client;
+    return this.instance._client;
   }
 }

@@ -30,7 +30,7 @@ export interface IClient {
 
   use: (plugins: IPlugin[]) => IClient;
 
-  registerSignature: () => Promise<IClient>;
+  registerSignature: () => Promise<void>;
 
   destroy: () => void;
 

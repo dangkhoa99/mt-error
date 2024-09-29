@@ -2,7 +2,7 @@
 export const regexFilterUrl = /http[^\n]*/;
 
 //------------------------------------------------------------------------------------
-export const getErrorBoundaryDetail = (opts: { error: Error }) => {
+export const getErrorBoundaryTrace = (opts: { error: Error }) => {
   const { error } = opts;
 
   const matches = error?.stack?.match(regexFilterUrl);

@@ -47,12 +47,18 @@ class _Client implements IClient {
   }
 
   //------------------------------------------------------------------------------------
-  async registerSignature(): Promise<IClient> {
+  async registerSignature() {
     const { publicKey, environment, projectId } = this._config;
 
-    const signature = await getSignature({ publicKey, environment, projectId });
-    this._signature = signature;
-    return this;
+    try {
+      this._signature = await getSignature({
+        publicKey,
+        environment,
+        projectId,
+      });
+    } catch (err) {
+      console.error('[ERROR][REGISTER_SIGNATURE]', err);
+    }
   }
 
   //------------------------------------------------------------------------------------
@@ -71,8 +77,7 @@ class _Client implements IClient {
   // Create an event
   // Return a data body containing device actions and other information
   createEvent<T = AnyType>(values: ICreateEvent<T>): IEvent<T> {
-    const { publicKey, appVersion, appType, environment, projectId } =
-      this._config;
+    const { appVersion, appType, environment, projectId } = this._config;
 
     return new Event({
       actions: this._actions,
@@ -82,7 +87,7 @@ class _Client implements IClient {
       device: this._device(this),
       environment,
       projectId,
-      signature: this._signature[0],
+      signature: this._signature,
       eventType: values.eventType,
     });
   }
@@ -101,10 +106,6 @@ class _Client implements IClient {
     const endpoint = this._config.endpoint;
 
     return new Promise<TResponse>((resolve, reject) => {
-      if (!endpoint) {
-        return resolve({} as unknown as TResponse);
-      }
-
       if (!event) {
         return reject(new Error('Event is not valid'));
       }
