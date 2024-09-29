@@ -1,6 +1,6 @@
 import { plugins } from '../plugins';
 import { IClient, IConfig } from '../types';
-import { device, getGlobal } from '../utils';
+import { device, getGlobal, getSignature } from '../utils';
 import { Client } from './client';
 
 //------------------------------------------------------------------------------------
@@ -21,6 +21,7 @@ export class MTError {
     //------------------------------------------------------------------------------------
     const client = new Client({ config, device, destroy });
 
+    client.registerSignature();
     client.use(plugins);
 
     global.__MT_ERROR__ = { client };

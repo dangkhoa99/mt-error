@@ -12,10 +12,8 @@
     "release": "pnpm publish --no-git-checks"
   },
   "dependencies": {
-    "crypto-js": "^4.2.0"
   },
   "devDependencies": {
-    "@types/crypto-js": "^4.2.2",
     "@types/node": "^22.1.0",
     "eslint-plugin-prettier": "^5.2.1",
     "eslint": "^8.57.0",

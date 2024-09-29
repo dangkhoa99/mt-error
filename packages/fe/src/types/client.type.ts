@@ -30,11 +30,11 @@ export interface IClient {
 
   use: (plugins: IPlugin[]) => IClient;
 
+  registerSignature: () => Promise<IClient>;
+
   destroy: () => void;
 
-  createEvent: <T = AnyType>(
-    value: ICreateEvent<T>,
-  ) => Promise<IEvent<T>> | null;
+  createEvent: <T = AnyType>(value: ICreateEvent<T>) => IEvent<T> | null;
 
   notify: <TResponse = AnyType>(eventLike: AnyType) => Promise<TResponse>;
 

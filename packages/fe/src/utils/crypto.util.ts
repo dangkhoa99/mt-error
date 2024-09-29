@@ -1,15 +1,5 @@
-import CryptoJS from 'crypto-js';
-
 //------------------------------------------------------------------------------------
-/**
- * @deprecated
- */
-export const encrypt = (message: string | number, secret: string): string => {
-  return CryptoJS.AES.encrypt(message.toString(), secret).toString();
-};
-
-//------------------------------------------------------------------------------------
-const base64ToArrayBuffer = (base64) => {
+const base64ToArrayBuffer = (base64: string) => {
   const binaryString = window.atob(base64);
   const length = binaryString.length;
   let bytes = new Uint8Array(length);
@@ -22,7 +12,7 @@ const base64ToArrayBuffer = (base64) => {
 };
 
 //------------------------------------------------------------------------------------
-const arrayBufferToBase64 = (buffer) => {
+const arrayBufferToBase64 = (buffer: ArrayBuffer) => {
   let binary = '';
   const bytes = new Uint8Array(buffer);
 
@@ -34,7 +24,7 @@ const arrayBufferToBase64 = (buffer) => {
 };
 
 //------------------------------------------------------------------------------------
-const importPublicKey = async (spki) => {
+const importPublicKey = async (spki: string) => {
   const message = base64ToArrayBuffer(spki);
   const cryptoKey = await window.crypto.subtle.importKey(
     'spki',
@@ -47,7 +37,9 @@ const importPublicKey = async (spki) => {
 };
 
 //------------------------------------------------------------------------------------
-const encryptData = async (message, publicKey) => {
+const encryptData = async (opts: { message: string; publicKey: CryptoKey }) => {
+  const { message, publicKey } = opts;
+
   const enc = new TextEncoder();
   const encodedMessage = enc.encode(message);
   const encryptedData = await window.crypto.subtle.encrypt(
@@ -72,19 +64,9 @@ export const getSignature = async (opts: {
   }
 
   const key = await importPublicKey(publicKey);
-  const rs = await encryptData(JSON.stringify({ environment, projectId }), key);
+  const rs = await encryptData({
+    message: JSON.stringify({ environment, projectId }),
+    publicKey: key,
+  });
   return rs;
 };
-
-//------------------------------------------------------------------------------------
-// export const getSignature_1 = (publicKey?: string) => {
-//   try {
-//     const key = await importPublicKey(publicKey);
-//     const rs = await encryptData(JSON.stringify({}), key);
-//     return rs;
-//   } catch (error) {
-//     // Handle errors appropriately
-//     console.error(error);
-//     return null; // Or return a default value
-//   }
-// };

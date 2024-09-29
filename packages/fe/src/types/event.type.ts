@@ -22,11 +22,6 @@ export interface IEvent<T> {
 }
 
 //------------------------------------------------------------------------------------
-export interface IBaseDetail {
-  message?: string;
-}
-
-//------------------------------------------------------------------------------------
 export interface ICreateEvent<T> {
   eventType: TEventType;
   trace: T;
