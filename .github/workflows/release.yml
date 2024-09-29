@@ -53,7 +53,7 @@ jobs:
       - name: Install dependencies and build 🔧
         run: |
           npm install -g pnpm
-          pnpm install
+          pnpm install --no-frozen-lockfile
 
       - name: Versioning application artifact
         run: |
